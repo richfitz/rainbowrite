@@ -6,7 +6,7 @@
 \alias{lolwarning}
 \title{Taste The Rainbow}
 \usage{
-lolcat(..., file = "")
+lolcat(..., file = "", bold = FALSE)
 
 lolmessage(..., domain = NULL, appendLF = TRUE)
 
@@ -22,6 +22,8 @@ lolstop(..., call. = TRUE, domain = NULL)
 \item{file}{Used to check that we don't put silly output into
 actual files.  Base \code{cat} will be used when \code{file} is
 given.}
+
+\item{bold}{Should the text be in bold?}
 
 \item{domain}{used by translations (not yet supported)}
 

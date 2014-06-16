@@ -9,5 +9,6 @@ Description: A port of the "lolcat" unix utility to R.  Provides an
     improved replacement for "cat", "message" and "stop".
 License: BSD_2_clause + file LICENSE
 Roxygen: list(wrap = FALSE)
-Suggests:
-    testthat
+Imports:
+    testthat,
+    methods

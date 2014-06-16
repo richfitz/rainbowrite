@@ -17,6 +17,11 @@ increment_offset <- function() {
   invisible(NULL)
 }
 
+set_offset <- function(x) {
+  opts$os <- x
+  invisible(NULL)
+}
+
 ## Should be very easy to use other palettes here.
 rainbow <- function(freq, i) {
   red   <- sin(freq*i + 0) * 127 + 128
@@ -60,6 +65,7 @@ rainbow_colour <- function(string, bold=FALSE) {
   paste(string, collapse="\n")
 }
 
+
 ##' Replacement for cat, message, warning and stop.
 ##'
 ##' Note that the warning and stop verions don't work very well at the
@@ -71,17 +77,18 @@ rainbow_colour <- function(string, bold=FALSE) {
 ##' @param file Used to check that we don't put silly output into
 ##' actual files.  Base \code{cat} will be used when \code{file} is
 ##' given.
+##' @param bold Should the text be in bold?
 ##' @author Rich FitzJohn
 ##' @export
 ##' @examples
 ##' for (i in 1:20) {
 ##'   lolcat("hello world\n")
 ##' }
-lolcat <- function(..., file="") {
+lolcat <- function(..., file="", bold=FALSE) {
   if (file != "") {
     base::cat(..., file=file)
   } else {
-    base::cat(rainbow_colour(cat_prepare(...)))
+    base::cat(rainbow_colour(cat_prepare(...), bold))
   }
 }
 
