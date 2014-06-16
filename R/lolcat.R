@@ -51,7 +51,10 @@ rainbow_colour <- function(string) {
   paste(string, collapse="\n")
 }
 
-##' Replacement for cat
+##' Replacement for cat, message, warning and stop.
+##'
+##' Note that the warning and stop verions don't work very well at the
+##' moment, and message does not yet bold the output.
 ##'
 ##' @title Taste The Rainbow
 ##' @param ... Arguments as for \code{\link{cat}}, including
@@ -74,20 +77,43 @@ lolcat <- function(..., file="") {
 }
 
 ## NOTE: We should avoid doing anything with domain not null?
+##' @export
+##' @rdname lolcat
+##' @param domain used by translations (not yet supported)
+##' @param appendLF logical: should messages given as a character
+##' string have a newline appended?  (see \code{\link{message}}).
 lolmessage <- function(..., domain=NULL, appendLF=TRUE) {
   base::message(rainbow_colour(...), domain=domain, appendLF=appendLF)
 }
 
 ## NOTE: Not sure how noBreaks. should be treated.
+## TODO: The domain bit needs dealing with *before* passing through
+## to stop/warning because we won't be able to translate once the
+## string has been garbled.
+##
+## TODO: No highlighting on the stop -- it's possible though that we
+## can leak the ascii code here first, though it won't have variation
+## in colour horizontally (yup, that will work).
+##
+## TODO: The call information for warning and stop is wrong because
+## we're off by one call.
+##' @export
+##' @rdname lolcat
+##' @param call.,immediate.,noBreaks. Arguments passed through to
+##' \code{\link{warning}} and \code{\link{stop}} - these are passed
+##' directly through to the underlying function.
 lolwarning <- function(..., call.=TRUE, immediate.=FALSE,
                        noBreaks.=FALSE, domain=NULL) {
-  base::message(rainbow_colour(...),
-                call.=call., immediate=immediate.,
+  base::warning(rainbow_colour(...),
+                call.=call., immediate.=immediate.,
                 noBreaks.=FALSE, domain=domain)
 }
 
+## TODO: The correct way to do this is via tryCatch I think...
+##' @export
+##' @rdname lolcat
 lolstop <- function(..., call.=TRUE, domain=NULL) {
-  base::message(rainbow_colour(...), call.=call., domain=domain)
+  base::stop(rainbow_colour(...), call.=call., domain=domain)
 }
 
 last_char <- function(x) {
