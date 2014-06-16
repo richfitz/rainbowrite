@@ -6,9 +6,6 @@
 ##' (based on \code{getOption("width")} and (2) it produces a summary
 ##' saying how many successful and unsuccessful tests were performed.
 ##'
-##' There is an off-by-one error in fitting tests to the screen that I
-##' need to deal with at some point.
-##'
 ##' @title A Colourful testthat Reporter
 ##' @param ... Arguments passed through to \code{SummaryReporter}
 ##' @export
@@ -34,11 +31,11 @@ LolReporter$methods(start_reporter=function() {
 LolReporter$methods(start_context=function(desc) {
   lolcat(desc, ": ")
   width <<- as.integer(getOption("width") - 4L)
-  at_context <<- nchar(desc) + 3L
+  at_context <<- nchar(desc) + 3L - 1L
   at <<- at_context
 })
 LolReporter$methods(end_context=function() {
-  cat("\n")
+  lolcat("\n")
   rainbowrite:::increment_offset()
 })
 LolReporter$methods(add_result=function(result) {

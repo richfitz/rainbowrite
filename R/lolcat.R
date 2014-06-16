@@ -3,18 +3,25 @@
 ##   str_join(str_split("hello\n", "\n")[[1]], collapse="\n")
 ##      --> "hello\n"
 opts <- new.env(parent=emptyenv())
-opts$os <- 1
-opts$freq <- 0.1
-opts$spread <- 3.0
 reset <- function() {
   opts$os <- 1
+  opts$at <- 0
   opts$freq <- 0.1
   opts$spread <- 3.0
 }
+reset()
 
 increment_offset <- function() {
-  opts$os <- opts$os + 1
+  opts$os <- opts$os + 1L
   invisible(NULL)
+}
+
+increase_at <- function(n) {
+  opts$at <- opts$at + n
+}
+
+reset_at <- function() {
+  opts$at <- 0L
 }
 
 set_offset <- function(x) {
@@ -37,7 +44,8 @@ rainbow_colour_line <- function(string, bold) {
     string
   } else {
     str <- strsplit(string, NULL)[[1]]
-    col <- rainbow(opts$freq, opts$os + seq_along(str) / opts$spread)
+    col <- rainbow(opts$freq, opts$os +
+                   (opts$at + seq_along(str)) / opts$spread)
     if (bold) {
       paste(paint(str, col, "bold"), collapse="")
     } else {
@@ -57,9 +65,16 @@ rainbow_colour <- function(string, bold=FALSE) {
   }
   n <- length(string)
   for (i in seq_len(n)) {
+    len <- nchar(string[[i]]) # only actually needed when i == n
     string[[i]] <- rainbow_colour_line(string[[i]], bold)
-    if (i < n || trailing_newline) {
+    if (i < n) {
+      reset_at()
       increment_offset()
+    } else if (trailing_newline) {
+      reset_at()
+      increment_offset()
+    } else {
+      increase_at(len)
     }
   }
   paste(string, collapse="\n")

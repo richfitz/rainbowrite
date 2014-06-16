@@ -20,8 +20,4 @@ it breaks the string of dots close to the edge of the screen
 (based on \code{getOption("width")} and (2) it produces a summary
 saying how many successful and unsuccessful tests were performed.
 }
-\details{
-There is an off-by-one error in fitting tests to the screen that I
-need to deal with at some point.
-}
 
