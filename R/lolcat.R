@@ -41,9 +41,12 @@ rainbow_colour <- function(string) {
   if (trailing_newline) {
     string[[length(string)]] <- paste0(string[[length(string)]], "\n")
   }
-  for (i in seq_along(string)) {
+  n <- length(string)
+  for (i in seq_len(n)) {
     string[[i]] <- rainbow_colour_line(string[[i]])
-    opts$os <- opts$os + 1
+    if (i < n || trailing_newline) {
+      opts$os <- opts$os + 1
+    }
   }
   paste(string, collapse="\n")
 }
