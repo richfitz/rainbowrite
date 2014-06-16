@@ -56,6 +56,6 @@ detect_mode <- function() {
   }
 }
 
-.onLoad <- function(libname, packagename) {
+.onLoad <- function(lib, pkg) {
   reset()
 }
