@@ -3,14 +3,24 @@
 \alias{paint}
 \title{Paint String}
 \usage{
-paint(string, ...)
+paint(string, ..., background = FALSE)
 }
 \arguments{
 \item{string}{vector of strings to be coloured}
 
 \item{...}{Options.  Currently valid options are either a single
 three-element vector or a three row matrix, both interpreted as
-red/green/blue.  R's standard recycling rules are used.}
+red/green/blue, or a string with an ANSI effect code ('bright' or
+'bold' being the most useful) or a string with a colour name/hex
+code parseable by R's \code{\link{col2rgb}}.}
+
+\item{background}{Logical vector indicating if the options apply
+to the background or the foreground.  If scalar, all options apply
+to either foreground or background.  Otherwise the i'th element of
+\code{background} applies to the ith option.  Currently background
+does not deal well with trailing newlines, with the background
+colour leaking over to the next line.  Pressing "backspace" seems
+to reset it though.}
 }
 \description{
 "Paint" a string by wrapping it in ANSI colour code information.

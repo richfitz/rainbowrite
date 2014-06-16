@@ -12,6 +12,11 @@ reset <- function() {
   opts$spread <- 3.0
 }
 
+increment_offset <- function() {
+  opts$os <- opts$os + 1
+  invisible(NULL)
+}
+
 ## Should be very easy to use other palettes here.
 rainbow <- function(freq, i) {
   red   <- sin(freq*i + 0) * 127 + 128
@@ -22,17 +27,21 @@ rainbow <- function(freq, i) {
 
 ## This is vectorised for a single string, so that's nice.  Won't be
 ## as slow as it seems like it could be.
-rainbow_colour_line <- function(string) {
+rainbow_colour_line <- function(string, bold) {
   if (nchar(string) == 0) {
     string
   } else {
     str <- strsplit(string, NULL)[[1]]
     col <- rainbow(opts$freq, opts$os + seq_along(str) / opts$spread)
-    paste(paint(str, col), collapse="")
+    if (bold) {
+      paste(paint(str, col, "bold"), collapse="")
+    } else {
+      paste(paint(str, col), collapse="")
+    }
   }
 }
 
-rainbow_colour <- function(string) {
+rainbow_colour <- function(string, bold=FALSE) {
   if (length(string) != 1) {
     stop("Need a single string for now")
   }
@@ -43,9 +52,9 @@ rainbow_colour <- function(string) {
   }
   n <- length(string)
   for (i in seq_len(n)) {
-    string[[i]] <- rainbow_colour_line(string[[i]])
+    string[[i]] <- rainbow_colour_line(string[[i]], bold)
     if (i < n || trailing_newline) {
-      opts$os <- opts$os + 1
+      increment_offset()
     }
   }
   paste(string, collapse="\n")
@@ -83,7 +92,11 @@ lolcat <- function(..., file="") {
 ##' @param appendLF logical: should messages given as a character
 ##' string have a newline appended?  (see \code{\link{message}}).
 lolmessage <- function(..., domain=NULL, appendLF=TRUE) {
-  base::message(rainbow_colour(...), domain=domain, appendLF=appendLF)
+  base::message(rainbow_colour(paste(..., collapse=""), bold=TRUE),
+                domain=domain, appendLF=appendLF)
+  if (appendLF) {
+    increment_offset()
+  }
 }
 
 ## NOTE: Not sure how noBreaks. should be treated.
