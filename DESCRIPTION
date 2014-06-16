@@ -12,3 +12,5 @@ Roxygen: list(wrap = FALSE)
 Imports:
     testthat,
     methods
+Suggests:
+    cowsay
