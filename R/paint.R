@@ -2,14 +2,6 @@
 ## xtermStyle and in the ruby gem "paint".  Eventually more features
 ## will be supported, but for now it's tailored to what I need for
 ## rainbow colouration.
-##
-## A different set of functions will be needed for other destinations;
-## for HTML output in particular.
-
-## This is going to be something detectable on startup.
-## TODO: Determine what the current target is - see showConnections()
-## and try to determine if we should actually colour anything.
-mode <- 256
 
 ## Reset terminal
 NOTHING <- "\033[0m"
@@ -34,7 +26,7 @@ NOTHING <- "\033[0m"
 ##' @export
 paint <- function(string, ..., background=FALSE) {
   options <- list(...)
-  if (mode == 0 || length(options) == 0 ||
+  if (opts$mode == 0 || length(options) == 0 ||
       length(string) == 0 || nchar(string) == 0) {
     string
   } else {
@@ -86,9 +78,9 @@ paint_colour <- function(options, background=FALSE) {
 }
 
 paint_rgb <- function(red, green, blue, background=FALSE) {
-  if (mode == 8 || mode == 16) {
+  if (opts$mode == 8 || opts$mode == 16) {
     bg <- if (background) 4 else 3
-    fg <- rgb_like_value(red, green, blue, mode == 16)
+    fg <- rgb_like_value(red, green, blue, opts$mode == 16)
   } else {
     bg <- if (background) 48 else 38
     fg <- rgb_value(red, green, blue)

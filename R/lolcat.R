@@ -1,35 +1,7 @@
-## TODO: Much of this might be simplified if we used stringr: it has
-## the nice property that str_split and str_join re transitive:
-##   str_join(str_split("hello\n", "\n")[[1]], collapse="\n")
-##      --> "hello\n"
-opts <- new.env(parent=emptyenv())
-reset <- function() {
-  opts$os <- 1
-  opts$at <- 0
-  opts$freq <- 0.1
-  opts$spread <- 3.0
-}
-reset()
-
-increment_offset <- function() {
-  opts$os <- opts$os + 1L
-  invisible(NULL)
-}
-
-increase_at <- function(n) {
-  opts$at <- opts$at + n
-}
-
-reset_at <- function() {
-  opts$at <- 0L
-}
-
-set_offset <- function(x) {
-  opts$os <- x
-  invisible(NULL)
-}
-
 ## Should be very easy to use other palettes here.
+##
+## We reach period at freq * i = 2*pi -- the most important thing is
+## that the palette is periodic.
 rainbow <- function(freq, i) {
   red   <- sin(freq*i + 0) * 127 + 128
   green <- sin(freq*i + 2 * pi/3) * 127 + 128
@@ -121,17 +93,6 @@ lolmessage <- function(..., domain=NULL, appendLF=TRUE) {
   }
 }
 
-## NOTE: Not sure how noBreaks. should be treated.
-## TODO: The domain bit needs dealing with *before* passing through
-## to stop/warning because we won't be able to translate once the
-## string has been garbled.
-##
-## TODO: No highlighting on the stop -- it's possible though that we
-## can leak the ascii code here first, though it won't have variation
-## in colour horizontally (yup, that will work).
-##
-## TODO: The call information for warning and stop is wrong because
-## we're off by one call.
 ##' @export
 ##' @rdname lolcat
 ##' @param call.,immediate.,noBreaks. Arguments passed through to
@@ -144,7 +105,6 @@ lolwarning <- function(..., call.=TRUE, immediate.=FALSE,
                 noBreaks.=FALSE, domain=domain)
 }
 
-## TODO: The correct way to do this is via tryCatch I think...
 ##' @export
 ##' @rdname lolcat
 lolstop <- function(..., call.=TRUE, domain=NULL) {
