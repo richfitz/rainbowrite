@@ -87,25 +87,26 @@ lolstop <- function(..., call.=TRUE, domain=NULL) {
   base::message(rainbow_colour(...), call.=call., domain=domain)
 }
 
-cat_prepare <- function(..., sep=" ", fill=FALSE, labels=NULL) {
-  ## Mimicking all the behaviour of cat is hard without actually using
-  ## cat.  So just use it.  Note that going through a textConnection
-  ## is always the wrong move time-wise, so probably swap that out
-  ## later.
-  con <- textConnection("str", "w", local=TRUE)
-  base::cat(..., file=con, sep=sep, fill=fill, labels=labels)
-  close(con)
-  paste(str, collapse="\n")
-  ## This is a bit of a hack, but need to check if the input has a
-  ## trailing newline, in which case we need to add one.
-  tmp <- paste0(as.character(c(...)), collapse="")
-  if (substr(tmp, nchar(tmp), nchar(tmp)) == "\n") {
-    str <- paste0(str, "\n")
-  }
-  str
-}
-
 last_char <- function(x) {
   n <- nchar(x)
   substr(x, n, n)
+}
+
+## Getting this working in the general case is not easy because of the
+## requirement to nail the length requirement.
+capture <- function(expr, n=NULL) {
+  file <- tempfile()
+  sink(file)
+  on.exit(sink(NULL))
+  eval.parent(substitute(expr))
+  sink(NULL)
+  on.exit()
+  if (is.null(n)) {
+    n <- file.info(file)$size
+  }
+  readChar(file, n)
+}
+
+cat_prepare <- function(..., sep=" ", fill=FALSE, labels=NULL) {
+  capture(base::cat(..., sep=sep, fill=fill, labels=labels))
 }
