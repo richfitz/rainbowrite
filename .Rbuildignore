@@ -1,0 +1,4 @@
+Makefile
+.travis.yml
+inst/web
+inst/update-gh-pages.sh
