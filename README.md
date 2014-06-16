@@ -12,7 +12,9 @@ Use it just like `cat`
 
 ```
 library(rainbowrite)
-lolcat("hello world\n")
+for (i in 1:10) {
+  lolcat("hello world\n")
+}
 file <- system.file("DESCRIPTION", package="rainbowrite")
 rainbowrite:::lolcat(readLines(file), sep="\n")
 ```
@@ -23,12 +25,16 @@ Or like `message`
 lolmessage("wow\n\t\tsuch colours\n   much rainbow")
 ```
 
+![basic screenshot](https://github.com/richfitz/rainbowrite/raw/master/extra/screenshot1.png)
+
 Modify functions that already use `cat` or `message`:
 
 ```
 say <- lolify(cowsay::say)
-say("I ate a rainbow")
+say("I ate a rainbow", "longcat")
 ```
+
+![longcat screenshot](https://github.com/richfitz/rainbowrite/raw/master/extra/screenshot2.png)
 
 There is a testthat reporter
 
@@ -36,7 +42,7 @@ There is a testthat reporter
 test_dir("tests/testthat", reporter=lolreporter())
 ```
 
-This looks quite spectacular on heavily tested packages.
+![testthat screenshot](https://github.com/richfitz/rainbowrite/raw/master/extra/screenshot3.png)
 
 # Issues
 
