@@ -2,4 +2,46 @@
 
 [![Build Status](https://travis-ci.org/richfitz/rainbowrite.png?branch=master)](https://travis-ci.org/richfitz/rainbowrite)
 
-This package is silly
+This package contains a drop-in replacement for R's `cat` and `message`, based on the [lolcat](https://github/busyloop/lolcat).
+
+The terminal painting code takes inspiration from the the Ruby gem [paint](https://github.com/janlelis/paint) and from the R package [xtermStyle](http://cran.r-project.org/web/packages/xtermStyle).
+
+# Usage
+
+Use it just like `cat`
+
+```
+library(rainbowrite)
+lolcat("hello world\n")
+file <- system.file("DESCRIPTION", package="rainbowrite")
+rainbowrite:::lolcat(readLines(file), sep="\n")
+```
+
+Or like `message`
+
+```
+lolmessage("wow\n\t\tsuch colours\n   much rainbow")
+```
+
+Modify functions that already use `cat` or `message`:
+
+```
+say <- lolify(cowsay::say)
+say("I ate a rainbow")
+```
+
+There is a testthat reporter
+
+```
+test_dir("tests/testthat", reporter=lolreporter())
+```
+
+This looks quite spectacular on heavily tested packages.
+
+# Issues
+
+THere are two options for mimicking the behaviour of `cat`: accurate or fast -- I've chosen to implement this accurately, which involves passing all arguments through `base::cat` and then again through `lolcat`.  This uses temporary files, which are apparently faster than `textConnection`, but are still going to be slow.  However, some care is needed to get newlines to behave properly and I think that this is totally worth it.  But don't use this anywhere where speed is likely to be an issue.
+
+It is (un?)surprisingly hard to test code that embeds control sequences into text strings, so the package is poorly tested.  Bug reports welcome on the [issues page](issues).
+
+There is some support for `stop()` and `warning()` but I need to work out how to rewrite the triggering call or they are just confusing.
