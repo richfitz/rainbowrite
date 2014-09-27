@@ -3,7 +3,8 @@
 \alias{paint}
 \title{Paint String}
 \usage{
-paint(string, ..., background = FALSE)
+paint(string, ..., background = FALSE, reset = TRUE,
+  normal_is_bright = FALSE)
 }
 \arguments{
 \item{string}{vector of strings to be coloured}
@@ -21,6 +22,11 @@ to either foreground or background.  Otherwise the i'th element of
 does not deal well with trailing newlines, with the background
 colour leaking over to the next line.  Pressing "backspace" seems
 to reset it though.}
+
+\item{reset}{Reset the colours when}
+
+\item{normal_is_bright}{Is the "normal" state bright?  This should
+be TRUE when using \code{message} in interactive mode.}
 }
 \description{
 "Paint" a string by wrapping it in ANSI colour code information.

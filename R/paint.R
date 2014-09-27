@@ -22,15 +22,24 @@ NOTHING <- "\033[0m"
 ##' does not deal well with trailing newlines, with the background
 ##' colour leaking over to the next line.  Pressing "backspace" seems
 ##' to reset it though.
+##' @param reset Reset the colours when
+##' @param normal_is_bright Is the "normal" state bright?  This should
+##' be TRUE when using \code{message} in interactive mode.
 ##' @author Rich FitzJohn
 ##' @export
-paint <- function(string, ..., background=FALSE) {
+paint <- function(string, ..., background=FALSE, reset=TRUE,
+                  normal_is_bright=FALSE) {
   options <- list(...)
-  if (opts$mode == 0 || length(options) == 0 ||
-      length(string) == 0 || nchar(string) == 0) {
+  if (opts$mode == 0
+      || length(options) == 0
+      || identical(options, list(NULL))
+      || length(string) == 0
+      || nchar(string) == 0) {
     string
   } else {
-    paste0(paint_colour(options, background), string, NOTHING)
+    paste0(paint_colour(options, background), string,
+           if (reset) NOTHING,
+           if (normal_is_bright) paint_colour(list("bright")))
   }
 }
 
