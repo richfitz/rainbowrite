@@ -6,6 +6,16 @@ This package contains a drop-in replacement for R's `cat` and `message`, based o
 
 The terminal painting code takes inspiration from the the Ruby gem [paint](https://github.com/janlelis/paint) and from the R package [xtermStyle](http://cran.r-project.org/web/packages/xtermStyle).
 
+# Installation instructions
+
+Install using [devtools](https://github.com/hadley/devtools):
+
+```r
+devtools::install_github("richfitz/rainbowrite")
+```
+
+If you don't have devtools installed you will see an error "there is no package called 'devtools'"; if that happens install devtools with `install.packages("devtools")`.
+
 # Usage
 
 Use it just like `cat`
