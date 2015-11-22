@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/richfitz/rainbowrite.png?branch=master)](https://travis-ci.org/richfitz/rainbowrite)
 
-This package contains a drop-in replacement for R's `cat` and `message`, based on the [lolcat](https://github/busyloop/lolcat).
+This package contains a drop-in replacement for R's `cat` and `message`, based on the [lolcat](https://github.com/busyloop/lolcat).
 
 The terminal painting code takes inspiration from the the Ruby gem [paint](https://github.com/janlelis/paint) and from the R package [xtermStyle](http://cran.r-project.org/web/packages/xtermStyle).
 
