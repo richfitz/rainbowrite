@@ -46,13 +46,15 @@ say("I ate a rainbow", "longcat")
 
 ![longcat screenshot](https://github.com/richfitz/rainbowrite/raw/master/extra/screenshot2.png)
 
-There is a testthat reporter
+There was a testthat reporter
 
 ```
 test_dir("tests/testthat", reporter=lolreporter())
 ```
 
 ![testthat screenshot](https://github.com/richfitz/rainbowrite/raw/master/extra/screenshot3.png)
+
+But this needs rewriting to support the new testthat classes.
 
 # Issues
 
