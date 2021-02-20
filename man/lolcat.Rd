@@ -3,50 +3,41 @@
 \name{lolcat}
 \alias{lolcat}
 \alias{lolmessage}
-\alias{lolwarning}
-\alias{lolstop}
+\alias{lolprint}
 \title{Taste The Rainbow}
 \usage{
-lolcat(..., file = "", bold = FALSE)
+lolcat(..., file = "", fill = FALSE, lol = NULL)
 
-lolmessage(..., domain = NULL, appendLF = TRUE)
+lolmessage(..., domain = NULL, appendLF = TRUE, lol = NULL)
 
-lolwarning(..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,
-  domain = NULL)
-
-lolstop(..., call. = TRUE, domain = NULL)
+lolprint(x, ..., lol = NULL)
 }
 \arguments{
-\item{...}{Arguments as for \code{\link{cat}}, including
-\code{sep}, etc.}
+\item{...}{Arguments as for \link{cat}, including
+\code{sep}, etc, arguments passed to \link{message} or extra arguments
+to \link{print}}
 
 \item{file}{Used to check that we don't put silly output into
-actual files.  Base \code{cat} will be used when \code{file} is
-given.}
+actual files.  Base \link{cat} will be used when \code{file} is
+given}
 
-\item{bold}{Should the text be in bold?}
+\item{fill}{Passed to \link{cat}}
+
+\item{lol}{Optional \link{lol} engine to use. If omitted
+we use the default one registered when the package is loaded}
 
 \item{domain}{used by translations (not yet supported)}
 
 \item{appendLF}{logical: should messages given as a character
-string have a newline appended?  (see \code{\link{message}}).}
+string have a newline appended?  (see \link{message})}
 
-\item{call., immediate., noBreaks.}{Arguments passed through to
-\code{\link{warning}} and \code{\link{stop}} - these are passed
-directly through to the underlying function.}
+\item{x}{Object to print}
 }
 \description{
-Replacement for cat, message, warning and stop.
-}
-\details{
-Note that the warning and stop verions don't work very well at the
-moment, and message does not yet bold the output.
+Replacement for cat, message, and print.
 }
 \examples{
 for (i in 1:20) {
-  lolcat("hello world\\n")
+  lolcat("hello world\n")
 }
-}
-\author{
-Rich FitzJohn
 }

@@ -1,0 +1,28 @@
+---
+title: "rainbowrite"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{rainbowrite}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  error = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r, echo = FALSE, results = "asis"}
+reset <- rainbowrite::lol_hooks()
+```
+
+```{r}
+rainbowrite::lolprint(runif(20))
+```
+
+```{r, include = FALSE}
+reset()
+```

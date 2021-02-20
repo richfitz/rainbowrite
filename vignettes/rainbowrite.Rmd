@@ -1,0 +1,80 @@
+---
+title: "rainbowrite"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{rainbowrite}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+```{r, echo = FALSE, results = "asis"}
+rainbowrite::lol_hooks()
+```
+
+## Basic use
+
+For the most basic use, with defaults, just replace `cat`, `message` or `print` with calls to `lolcat`, `lolmessage` or `lolprint`, respectively:
+
+```{r}
+x <- runif(30)
+print(x)
+```
+
+becomes
+
+```{r}
+rainbowrite::lolprint(x)
+```
+
+containing the same great data, but now with much more unicorn flavour.
+
+## Advanced use
+
+If this is not enough control, you can interact directly with the `rainbowrite::lol` object. This has options that can tune the colour cycling. For example, to cycle colours faster than the default, and with a flatter angle (shifting so that rows cycle faster then columns)
+
+```{r}
+lol_faster <- rainbowrite::lol$new(rate = 0.1, angle = pi / 10)
+```
+
+This can be passed into `rainbowrite::lolprint` and friends:
+
+```{r}
+rainbowrite::lolprint(x, lol = lol_faster)
+```
+
+Or can be set as the default
+
+```{r}
+lol_faster$set_as_default()
+rainbowrite::lolprint(x)
+```
+
+## Galaxy brain use
+
+Some packages may not use lolcat, but we may want them to be more colourful.
+
+For example, the `cowsay` package is great:
+
+```{r}
+cowsay::say("I wish I was more colourful", "cow")
+```
+
+but could do with more colours. Use `rainbowrite::lolify` to create a copy of the target function where some of `cat`, `message` or `print` are replaced by their lol versions
+
+```{r}
+lolcow <- rainbowrite::lolify(cowsay::say)
+```
+
+and use it as
+
+```{r}
+lolcow("These colours mooove me!", "cow", type = "print")
+```

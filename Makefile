@@ -1,33 +1,33 @@
 PACKAGE := $(shell grep '^Package:' DESCRIPTION | sed -E 's/^Package:[[:space:]]+//')
+RSCRIPT = Rscript --no-init-file
 
 all: install
 
-test: install
-	make -C tests/testthat test
+test:
+	${RSCRIPT} -e 'library(methods); devtools::test()'
 
-document: roxygen staticdocs
+test_all:
+	REMAKE_TEST_INSTALL_PACKAGES=true make test
 
 roxygen:
 	@mkdir -p man
-	Rscript -e "library(methods); devtools::document()"
-
-staticdocs:
-	@mkdir -p inst/staticdocs
-	Rscript -e "library(methods); staticdocs::build_site()"
-
-publish_pages:
-	cd inst && ./update-gh-pages.sh
+	${RSCRIPT} -e "library(methods); devtools::document()"
 
 install:
-	R CMD INSTALL --no-test-load .
+	R CMD INSTALL .
 
 build:
 	R CMD build .
 
-check: build
-	R CMD check --no-manual `ls -1tr ${PACKAGE}*gz | tail -n1`
-	@rm -f `ls -1tr ${PACKAGE}*gz | tail -n1`
-	@rm -rf ${PACKAGE}.Rcheck
+check:
+	_R_CHECK_CRAN_INCOMING_=FALSE make check_all
 
-# No real targets!
+check_all:
+	${RSCRIPT} -e "rcmdcheck::rcmdcheck(args = c('--as-cran', '--no-manual'))"
+
+README.md: README.Rmd
+	Rscript -e "options(warnPartialMatchArgs=FALSE); knitr::knit('$<')"
+	sed -i.bak 's/[[:space:]]*$$//' README.md
+	rm -f $@.bak
+
 .PHONY: all test document install
