@@ -1,5 +1,6 @@
 Makefile
 .travis.yml
-inst/web
-inst/update-gh-pages.sh
-extra
+^README\.Rmd$
+^docs$
+^\.github$
+^\.lintr$

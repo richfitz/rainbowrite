@@ -5,27 +5,26 @@
 \alias{unlolify}
 \title{Make Functions More Colourful}
 \usage{
-lolify(f, which = "all")
+lolify(fun, which = "all")
 
-unlolify(f)
+unlolify(fun)
 }
 \arguments{
-\item{f}{A function to modify}
+\item{fun}{A function to modify}
 
 \item{which}{Character vector indicating which types of output
-generating functions to modify.  Possible values are \code{"cat"},
-\code{"message"}, \code{"warning"} and \code{"stop"}, indicating
-which functions to modify.  Multiple values are OK (e.g,
-\code{c("cat", "message")}.  The special value \code{"all"}
-changes all values and is the default.}
+generating functions to modify.  Possible values are "cat",
+"message" and "print", indicating which functions to modify.
+Multiple values are OK (e.g, \code{c("cat", "message")}.  The special
+value "all" changes all values and is the default.}
 }
 \value{
-A function with the environent rewritten to use lolifed
+A function with the environment rewritten to use lolifed
 versions of output functions
 }
 \description{
-x1Convert a function to use rainbow-writing functions: replacing
-\code{cat} with \code{lolcat}, etc.  This is done by rewriting
+Convert a function to use rainbow-writing functions: replacing
+\link{cat} with \link{lolcat}, etc.  This is done by rewriting
 environments rather than rewriting code.
 }
 \details{

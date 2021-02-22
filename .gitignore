@@ -1,2 +1,4 @@
 inst/web
 rainbowrite.Rcheck
+inst/doc
+docs

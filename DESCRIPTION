@@ -1,15 +1,26 @@
 Package: rainbowrite
-Type: Package
 Title: Rainbow Coloured Output
-Version: 0.1
+Version: 0.2.0
 Date: 2014-06-12
-Author: Richard G. FitzJohn
-Maintainer: Richard G. FitzJohn <rich.fitzjohn@gmail.com>
-Description: A port of the "lolcat" unix utility to R.  Provides an
-    improved replacement for "cat", "message" and "stop".
-License: BSD_2_clause + file LICENSE
-Roxygen: list(wrap = FALSE)
+Authors@R:
+    person(given = "Rich",
+           family = "FitzJohn",
+           role = c("aut", "cre"),
+           email = "rich.fitzjohn@gmail.com")
+Description: A port of the "lolcat" unix utility to R.  Provides a
+    colourful replacement for "cat", "message" and "print".
+License: MIT + file LICENSE
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
+Language: en-GB
+Imports:
+    R6,
+    crayon
 Suggests:
     cowsay,
+    fansi,
+    knitr,
+    rmarkdown,
     testthat
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.1
+VignetteBuilder: knitr
