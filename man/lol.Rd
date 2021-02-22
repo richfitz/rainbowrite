@@ -37,7 +37,7 @@ to bottom-right, \code{pi / 2} changes across columns and so on.
 Any numeric value is allowed.}
 
 \item{\code{aspect}}{The assumed aspect ratio of rows to columns (used
-in the treatment of theta).}
+in the treatment of \code{angle}).}
 
 \item{\code{palette}}{The colour palette to use. This should be a vector
 of hex colours that "wrap". We will interpolate along this

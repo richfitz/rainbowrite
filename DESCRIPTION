@@ -1,7 +1,6 @@
 Package: rainbowrite
 Title: Rainbow Coloured Output
 Version: 0.2.0
-Date: 2014-06-12
 Authors@R:
     person(given = "Rich",
            family = "FitzJohn",
@@ -10,6 +9,8 @@ Authors@R:
 Description: A port of the "lolcat" unix utility to R.  Provides a
     colourful replacement for "cat", "message" and "print".
 License: MIT + file LICENSE
+URL: https://github.com/richfitz/rainbowrite
+BugReports: https://github.com/richfitz/rainbowrite/issues
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 Language: en-GB

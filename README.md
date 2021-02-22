@@ -8,7 +8,7 @@
 ![works?](https://img.shields.io/badge/works-on%20my%20machine-pink)
 <!-- badges: end -->
 
-This package contains a drop-in replacement for R's `cat`, `message` and `print`, inspired by the [lolcat](https://github.com/busyloop/lolcat).
+This package contains a drop-in replacement for R's `cat`, `message` and `print`, inspired by [lolcat](https://github.com/busyloop/lolcat).
 
 ## Usage
 

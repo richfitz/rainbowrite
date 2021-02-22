@@ -1,6 +1,6 @@
 ##' Replacement for cat, message, and print.
 ##'
-##' @title Taste The Rainbow
+##' @title Colourful printing
 ##'
 ##' @param ... Arguments as for [cat], including
 ##'   `sep`, etc, arguments passed to [message] or extra arguments

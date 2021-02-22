@@ -4,7 +4,7 @@
 \alias{lolcat}
 \alias{lolmessage}
 \alias{lolprint}
-\title{Taste The Rainbow}
+\title{Colourful printing}
 \usage{
 lolcat(..., file = "", fill = FALSE, lol = NULL)
 
